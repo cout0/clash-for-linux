@@ -8,8 +8,8 @@
 # 获取脚本工作目录绝对路径
 export Server_Dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-# 加载.env变量文件
-source $Server_Dir/.env
+# 加载env变量文件
+source $Server_Dir/env
 
 # 给二进制启动程序、脚本等添加可执行权限
 chmod +x $Server_Dir/bin/*
@@ -180,8 +180,8 @@ echo -e "Clash Dashboard 访问地址: http://<ip>:9090/ui"
 echo -e "Secret: ${Secret}"
 echo ''
 
-# 添加环境变量(root权限)
-cat>/etc/profile.d/clash.sh<<EOF
+# 生成文件proxy_on
+cat>$(pwd)/proxy_on.sh<<EOF
 # 开启系统代理
 function proxy_on() {
 	export http_proxy=http://127.0.0.1:7890
@@ -189,7 +189,11 @@ function proxy_on() {
 	export no_proxy=127.0.0.1,localhost
 	echo -e "\033[32m[√] 已开启代理\033[0m"
 }
+proxy_on
+EOF
 
+# 生成文件proxy_off
+cat>$(pwd)/proxy_off.sh<<EOF
 # 关闭系统代理
 function proxy_off(){
 	unset http_proxy
@@ -197,8 +201,8 @@ function proxy_off(){
 	unset no_proxy
 	echo -e "\033[31m[×] 已关闭代理\033[0m"
 }
+proxy_off
 EOF
 
-echo -e "请执行以下命令加载环境变量: source /etc/profile.d/clash.sh\n"
-echo -e "请执行以下命令开启系统代理: proxy_on\n"
-echo -e "若要临时关闭系统代理，请执行: proxy_off\n"
+echo -e "请执行以下命令开启系统代理: source $(pwd)/proxy_on.sh\n"
+echo -e "若要临时关闭系统代理，请执行: source $(pwd)/proxy_off.sh\n"

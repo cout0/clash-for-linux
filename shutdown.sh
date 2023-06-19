@@ -9,6 +9,8 @@ if [ $PID_NUM -ne 0 ]; then
 fi
 
 # 清除环境变量
-> /etc/profile.d/clash.sh
+source $(pwd)/proxy_off.sh
+rm $(pwd)/proxy_on.sh
+rm $(pwd)/proxy_off.sh
 
-echo -e "\n服务关闭成功，请执行以下命令关闭系统代理：proxy_off\n"
+echo -e "\n服务关闭成功\n"
