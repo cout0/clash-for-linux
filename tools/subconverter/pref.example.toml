@@ -31,7 +31,7 @@ enable_filter = false
 #function filter(node) {
 #    const info = JSON.parse(node.ProxyInfo);
 #    if(info.EncryptMethod.includes('chacha20'))
-#	    return true;
+#        return true;
 #    return false;
 #}
 #'''
@@ -154,7 +154,7 @@ config_update_interval = 86400
 # If config_update_strict is set to true, Surge will require a force update after the interval.
 config_update_strict = false
 
-# Device ID to be written to rewrite scripts for some version of Quantumult X 
+# Device ID to be written to rewrite scripts for some version of Quantumult X
 quanx_device_id = ""
 
 [surge_external_proxy]

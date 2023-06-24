@@ -1,3 +1,4 @@
 # Clash 订阅地址
+export CLASH_MODE='选择执行模式[user|root]'
 export CLASH_URL='更改为你的clash订阅地址'
 export CLASH_SECRET=''

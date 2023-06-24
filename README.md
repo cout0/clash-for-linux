@@ -8,7 +8,7 @@
 
 # 使用须知
 
-- ~~运行本项目建议使用root用户，或者使用 sudo 提权~~（可以不用root权限）。
+- 本项目支持user普通用户和root权限(或sudo提权)执行。
 - 使用过程中如遇到问题，请优先查已有的 [issues](https://github.com/wanhebin/clash-for-linux/issues)。
 - 在进行issues提交前，请替换提交内容中是敏感信息（例如：订阅地址）。
 - 本项目是基于 [clash](https://github.com/Dreamacro/clash) 、[yacd](https://github.com/haishanh/yacd) 进行的配置整合，关于clash、yacd的详细配置请去原项目查看。
@@ -53,7 +53,7 @@ $ cd clash-for-linux
 - 运行启动脚本
 
 ```bash
-$ sudo bash start.sh
+$ [sudo] bash start.sh
 
 正在检测订阅地址...
 Clash订阅地址可访问！                                      [  OK  ]
@@ -67,14 +67,28 @@ Clash订阅地址可访问！                                      [  OK  ]
 Clash Dashboard 访问地址：http://<ip>:9090/ui
 Secret：xxxxxxxxxxxxx
 
+[ user ]
+
 请执行以下命令开启系统代理: source proxy_on.sh
 
 若要临时关闭系统代理，请执行: source proxy_off.sh
 
+[ root ]
+
+请执行以下命令加载环境变量: source /etc/profile.d/clash.sh
+
+请执行以下命令开启系统代理: proxy_on
+
+若要临时关闭系统代理，请执行: proxy_off
+
 ```
 
 ```bash
+# user
 $ source ./proxy_on.sh
+
+# root
+$ proxy_on
 ```
 
 - 检查服务端口
@@ -119,14 +133,22 @@ $ cd clash-for-linux
 - 关闭服务
 
 ```bash
-$ sudo bash shutdown.sh
+$ [sudo] bash shutdown.sh
 
+[ user ]
+服务关闭成功，请执行以下命令关闭系统代理：source proxy_off.sh
+
+[ root ]
 服务关闭成功，请执行以下命令关闭系统代理：proxy_off
 
 ```
 
 ```bash
+# user
 $ source ./proxy_off.sh
+
+# root
+$ proxy_off
 ```
 
 然后检查程序端口、进程以及环境变量`http_proxy|https_proxy`，若都没则说明服务正常关闭。
@@ -160,5 +182,5 @@ $ source ./proxy_off.sh
 2. 部分用户在UI界面找不到代理节点，基本上是因为厂商提供的clash配置文件是经过base64编码的，且配置文件格式不符合clash配置标准。
 
    目前此项目已集成自动识别和转换clash配置文件的功能。如果依然无法使用，则需要通过自建或者第三方平台（不推荐，有泄露风险）对订阅地址转换。
-   
+
 3. 程序日志中出现`error: unsupported rule type RULE-SET`报错，解决方法查看官方[WIKI](https://github.com/Dreamacro/clash/wiki/FAQ#error-unsupported-rule-type-rule-set)

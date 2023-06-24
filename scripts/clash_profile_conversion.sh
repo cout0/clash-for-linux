@@ -29,7 +29,7 @@ else
         echo "配置文件已成功转换成clash标准格式"
       else
         echo "配置文件转换标准格式失败"
-	exit 1
+    exit 1
       fi
     fi
   else
